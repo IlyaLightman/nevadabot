@@ -1,0 +1,6 @@
+const { Telegraf } = require('telegraf')
+const Extra = require('telegraf/exstra')
+const Markup = require('telegraf/markup')
+const session = require('telegraf/session')
+const Stage = require('telegraf/Stage')
+const WizardScene = require('telegraf/scenes/wizard')
