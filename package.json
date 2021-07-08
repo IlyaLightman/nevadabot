@@ -2,15 +2,17 @@
   "name": "nevada",
   "version": "1.0.0",
   "description": "A Telegram Bot for Nevada Game Project CS:GO Servers",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "Ilya Zaytsev",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "ftp": "^0.3.10",
     "mongoose": "^5.13.2",
     "node-fetch": "^2.6.1",
     "password-generator": "^2.3.2",

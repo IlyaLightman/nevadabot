@@ -1,2 +1,5 @@
 .idea
 .node-modules
+.env
+package-lock.json
+databases/side/
