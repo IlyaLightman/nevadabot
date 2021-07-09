@@ -1,4 +1,4 @@
-const sqlite3 = require('sqlite3')
+const sqlite3 = require('sqlite3').verbose()
 const ftp = require('ftp')
 const fs = require('fs')
 require('dotenv').config()
@@ -38,17 +38,21 @@ const dataDownloading = srvNumber => {
 			// FTP Download
 			const client = new ftp()
 			client.on('ready', () => {
-				client.get('212.22.93.106_27045/addons/sourcemod/data/sqlite/lr_base.sq3',
+				client.get(
+					`${connectionData[srvNumber].host}_27045/addons/sourcemod/data/sqlite/lr_base.sq3`,
 					(err, stream) => {
-						if (err) return console.log('fucking', err)
+						if (err) return console.log('fuck', err)
 
-						stream.pipe(fs.createWriteStream('databases/side/lr_base.sq3'))
+						stream.pipe(fs.createWriteStream(
+							`databases/${connectionData[srvNumber].title}/lr_base.sq3`))
 						stream.once('close', () => {
-							client.get('212.22.93.106_27045/addons/sourcemod/data/sqlite/vip_core.sq3',
+							client.get(
+								`${connectionData[srvNumber].host}_27045/addons/sourcemod/data/sqlite/vip_core.sq3`,
 								(err, stream) => {
-									if (err) return console.log('fucking', err)
+									if (err) return console.log('fuck', err)
 
-									stream.pipe(fs.createWriteStream('databases/side/vip_core.sq3'))
+									stream.pipe(fs.createWriteStream(
+										`databases/${connectionData[srvNumber].title}/vip_core.sq3`))
 									stream.once('close', () => {
 										client.end()
 										resolve('Data downloaded')
@@ -70,13 +74,15 @@ const connectionData = [
 		host: '212.22.93.74',
 		port: 8821,
 		user: process.env.FIRST_LOGIN,
-		password: process.env.FIRST_PASS
+		password: process.env.FIRST_PASS,
+		title: 'nevada'
 	},
 	{
 		host: '212.22.93.106',
 		port: 8821,
 		user: process.env.SIDE_LOGIN,
-		password: process.env.SIDE_PASS
+		password: process.env.SIDE_PASS,
+		title: 'side'
 	}
 ]
 
