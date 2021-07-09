@@ -6,6 +6,8 @@ require('dotenv').config()
 
 const { dataUpdater } = require('./dataController')
 
+const bot = new Telegraf(process.env.TELEGRAM_API)
+
 const start = async () => {
 	setInterval(async () => {
 		await dataUpdater(redisClient)

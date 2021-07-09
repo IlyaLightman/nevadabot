@@ -27,3 +27,5 @@ const getSteamData = async url => {
 		}
 	}
 }
+
+module.exports = { getSteamData }
