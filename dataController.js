@@ -34,30 +34,34 @@ const dataDownloading = srvNumber => {
 	// 0 - Nevada, 1 - Side, 2 - Future
 
 	return new Promise((resolve, reject) => {
-		// FTP Download
-		const client = new ftp()
-		client.on('ready', () => {
-			client.get('212.22.93.106_27045/addons/sourcemod/data/sqlite/lr_base.sq3',
-				(err, stream) => {
-					if (err) return console.log('fucking', err)
+		try {
+			// FTP Download
+			const client = new ftp()
+			client.on('ready', () => {
+				client.get('212.22.93.106_27045/addons/sourcemod/data/sqlite/lr_base.sq3',
+					(err, stream) => {
+						if (err) return console.log('fucking', err)
 
-					stream.pipe(fs.createWriteStream('databases/side/lr_base.sq3'))
-					stream.once('close', () => client.end())
-				})
+						stream.pipe(fs.createWriteStream('databases/side/lr_base.sq3'))
+						stream.once('close', () => {
+							client.get('212.22.93.106_27045/addons/sourcemod/data/sqlite/vip_core.sq3',
+								(err, stream) => {
+									if (err) return console.log('fucking', err)
 
-			client.get('212.22.93.106_27045/addons/sourcemod/data/sqlite/vip_core.sq3',
-				(err, stream) => {
-					if (err) return console.log('fucking', err)
-
-					stream.pipe(fs.createWriteStream('databases/side/vip_core.sq3'))
-					stream.once('close', () => {
-						client.end()
-						resolve('Data downloaded')
+									stream.pipe(fs.createWriteStream('databases/side/vip_core.sq3'))
+									stream.once('close', () => {
+										client.end()
+										resolve('Data downloaded')
+									})
+								})
+						})
 					})
-				})
-		})
+			})
 
-		client.connect(connectionData[srvNumber])
+			client.connect(connectionData[srvNumber])
+		} catch(err) {
+			reject(err)
+		}
 	})
 }
 
