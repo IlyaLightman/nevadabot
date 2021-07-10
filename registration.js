@@ -16,6 +16,8 @@ const register = async (steamid) => {
 			authToken: simpleTokenGenerator()
 		})
 		await user.save()
+
+		return data
 	} catch (err) {
 		console.log('Registration error', err)
 	}
@@ -26,3 +28,5 @@ const simpleTokenGenerator = () => {
 
 	return generateToken(12, false)
 }
+
+module.exports = { register }
