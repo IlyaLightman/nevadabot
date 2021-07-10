@@ -6,6 +6,7 @@ const User = require('./models/User')
 require('dotenv').config()
 
 const { dataUpdater } = require('./dataController')
+const { rconSideCommand } = require('./rconController')
 
 const registrationStage = require('./scenes/registration')
 
@@ -36,7 +37,7 @@ const start = async () => {
 	setInterval(async () => {
 		await dataUpdater(redisClient)
 		console.log('Data updated')
-	}, 60000)
+	}, 600000)
 	console.log('Data updated first time')
 
 	await mongoose.connect(process.env.MONGO_URI, {

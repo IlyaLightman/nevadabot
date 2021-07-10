@@ -86,4 +86,4 @@ const connectionData = [
 	}
 ]
 
-module.exports = { dataUpdater }
+module.exports = { dataUpdater, connectionData }
