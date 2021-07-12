@@ -3,7 +3,10 @@ const ftp = require('ftp')
 const fs = require('fs')
 require('dotenv').config()
 
-const dataUpdater = async redisClient => {
+const redis  = require('redis')
+const redisClient = redis.createClient()
+
+const dataUpdater = async (/*redisClient*/) => {
 	try {
 		await dataDownloading(1)
 
@@ -69,6 +72,18 @@ const dataDownloading = srvNumber => {
 	})
 }
 
+const getStatData = (server, steamid) => {
+	return new Promise(((resolve, reject) => {
+		try {
+			redisClient.get(`${server}/lr`, async (err, res) => {
+				resolve(JSON.parse(res).find(d => d.steam.slice(10) === steamid.slice(10)))
+			})
+		} catch (err) {
+			reject(err)
+		}
+	}))
+}
+
 const connectionData = [
 	{
 		host: '212.22.93.74',
@@ -86,4 +101,4 @@ const connectionData = [
 	}
 ]
 
-module.exports = { dataUpdater, connectionData }
+module.exports = { dataUpdater, connectionData, getStatData }

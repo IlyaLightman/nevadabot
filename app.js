@@ -1,6 +1,6 @@
 const { Telegraf, Scenes, session } = require('telegraf')
-const redis  = require('redis')
-const redisClient = redis.createClient()
+// const redis  = require('redis')
+// const redisClient = redis.createClient()
 const mongoose = require('mongoose')
 const User = require('./models/User')
 require('dotenv').config()
@@ -37,14 +37,14 @@ bot.start(async ctx => {
 })
 
 bot.command('server', (ctx) => ctx.scene.enter('server'))
-bot.command('stat', (ctx) => ctx.scene.enter('stat', { redisClient }))
+bot.command('stat', (ctx) => ctx.scene.enter('stat'))
 
-bot.hears('Моя статистика', () => console.log('fucking statisctics'))
+bot.hears('Моя статистика', ctx => ctx.scene.enter('stat'))
 
 const start = async () => {
-	await dataUpdater(redisClient)
+	await dataUpdater(/*redisClient*/)
 	setInterval(async () => {
-		await dataUpdater(redisClient)
+		await dataUpdater(/*redisClient*/)
 		console.log('Data updated')
 	}, 600000)
 	console.log('Data updated first time')
