@@ -8,7 +8,16 @@ const schema = new Schema({
 	},
 	authToken: String,
 	telegramid: String,
-	steam: Object
+	steam: Object,
+	admin: {
+		nevada: { type: Boolean, default: false },
+		side: { type: Boolean, default: false },
+		future: { type: Boolean, default: false }
+	},
+	chosenServer: {
+		type: String,
+		default: 'future'
+	}
 })
 
 module.exports = model('User', schema)

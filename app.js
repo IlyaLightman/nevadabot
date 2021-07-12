@@ -9,10 +9,12 @@ const { dataUpdater } = require('./dataController')
 const { rconSideCommand } = require('./rconController')
 
 const registrationStage = require('./scenes/registration')
+const serverStage = require('./scenes/server')
 
 const bot = new Telegraf(process.env.TELEGRAM_API)
 const stage = new Scenes.Stage([
-	registrationStage
+	registrationStage,
+	serverStage
 ])
 
 bot.use(session())
@@ -26,11 +28,15 @@ bot.start(async ctx => {
 		return ctx.replyWithMarkdown(`Вы уже авторизованы!` +
 			`\n**Telegram ID**: ${candidate.telegramid}` +
 			`\n**Steam ID**: ${candidate.steamid}` +
-			`\n\nВведите /menu, если хотите попасть в меню`)
+			`\n\nВведите /server, чтобы выбрать сервер и попасть в меню`)
 	}
 
 	return ctx.scene.enter('registration')
 })
+
+bot.command('server', (ctx) => ctx.scene.enter('server'))
+
+bot.hears('Моя статистика', () => console.log('fucking statisctics'))
 
 const start = async () => {
 	await dataUpdater(redisClient)

@@ -1,4 +1,4 @@
-const { Telegraf, Scenes } = require('telegraf')
+const { Scenes } = require('telegraf')
 const { register } = require('../registration')
 const User = require('../models/User')
 
