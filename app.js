@@ -10,11 +10,13 @@ const { rconSideCommand } = require('./rconController')
 
 const registrationStage = require('./scenes/registration')
 const serverStage = require('./scenes/server')
+const statStage = require('./scenes/stat')
 
 const bot = new Telegraf(process.env.TELEGRAM_API)
 const stage = new Scenes.Stage([
 	registrationStage,
-	serverStage
+	serverStage,
+	statStage
 ])
 
 bot.use(session())
@@ -35,6 +37,7 @@ bot.start(async ctx => {
 })
 
 bot.command('server', (ctx) => ctx.scene.enter('server'))
+bot.command('stat', (ctx) => ctx.scene.enter('stat', { redisClient }))
 
 bot.hears('Моя статистика', () => console.log('fucking statisctics'))
 
