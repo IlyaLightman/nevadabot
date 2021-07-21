@@ -1,19 +1,20 @@
 const { Scenes, Markup, Composer } = require('telegraf')
 const User = require('../models/User')
-const { rconSideCommand } = require('../rconController')
+
+const { ban, kick, mute, map, msg } = require('../adminPanel')
 
 const controlHandler = new Composer()
 controlHandler.action('map', async ctx => {
 	await ctx.reply('Выберите карту: ')
 })
 controlHandler.action('ban', async ctx => {
-	await ctx.reply('Введите ссылку на профиль игрока, которого желаете забанить: ')
+	await ctx.reply('Введите ссылку на профиль игрока, длительность бана и его причину: ')
 })
 controlHandler.action('kick', async ctx => {
-	await ctx.reply('Введите ссылку на профиль игрока, которого желаете кикнуть: ')
+	await ctx.reply('Введите ссылку на профиль игрока и причину кика: ')
 })
 controlHandler.action('mute', async ctx => {
-	await ctx.reply('Введите ссылку на профиль игрока, которого желаете замутить: ')
+	await ctx.reply('Введите ссылку на профиль игрока, длительность мута и его причину: ')
 })
 controlHandler.action('msg',  async ctx => {
 	await ctx.reply('Введите сообщение: ')
