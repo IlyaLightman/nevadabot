@@ -6,7 +6,6 @@ const User = require('./models/User')
 require('dotenv').config()
 
 const { dataUpdater } = require('./dataController')
-const { rconSideCommand } = require('./rconController')
 
 const registrationStage = require('./scenes/registration')
 const serverStage = require('./scenes/server')
