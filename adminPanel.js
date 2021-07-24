@@ -17,6 +17,7 @@ const mute = async (link, time, reason) => {
 }
 
 const map = async map => {
+	console.log('mapop')
 	await rconSideCommand(``)
 }
 
